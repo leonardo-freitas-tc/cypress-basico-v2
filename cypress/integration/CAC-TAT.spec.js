@@ -143,7 +143,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         // dentro deste objeto possuimos o atributo name, que é o nome do arquivo anexado.
     })
 
-    it.only('seleciona um arquivo simulando um drag-and-drop', function() {
+    it('seleciona um arquivo simulando um drag-and-drop', function() {
         cy.get('#file-upload')
           .selectFile('./cypress/fixtures/example.json', { action: "drag-drop" })
           .should(($input) => {
@@ -174,6 +174,73 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
 
+    it('exibe mensagem de sucesso por 3 segundos', () => {
+      cy.clock() // congela o relógio do navegador
+      
+      cy.fillMandatoryFieldsAndSubmit();
+    
+      cy.contains('.success', 'Mensagem enviada com sucesso')
+        .should('be.visible') // verificação de que a mensagem de sucessso está visível
+    
+      cy.tick(3000) // avança o relógio do navegador três segundos (em milissegundos)
+
+      cy.get('.button').click();
+    
+      cy.get('.error')
+        .should('have.class', 'error')
+        .and('be.visible');
+
+    })
+
+    it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
+      cy.get('.success')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain', 'Mensagem enviada com sucesso.')
+        .invoke('hide')
+        .should('not.be.visible')
+
+      cy.get('.error')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain', 'Valide os campos obrigatórios!')
+        .invoke('hide')
+        .should('not.be.visible')
+    })
+    
+    it('preenche a area de texto usando o comando invoke', function() {
+      const texto = Cypress._.repeat("abcdefg ", 10);
+
+      cy.get('#open-text-area')
+        .invoke('val', texto)
+        .should('have.value', texto)
+    })
+
+    it('faz uma requisição HTTP', function() {
+      cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+        .should(function(response) {
+          const { status, statusText, body } = response
+          expect(status).to.equal(200);
+          expect(statusText).to.equal('OK');
+          expect(body).to.include('CAC TAT');
+        })
+    }
+    )
+    it.only('encontra gato escondido', function() {
+      cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+        .should(function(response) {
+          const { status, statusText, body } = response
+          expect(status).to.equal(200);
+          expect(statusText).to.equal('OK');
+          expect(body).to.include('🐈')
+        })
+      
+      cy.get('#cat')
+        .invoke('show')
+        .should('be.visible');
+    })
 })
 
 
