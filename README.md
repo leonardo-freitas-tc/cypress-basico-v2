@@ -1,10 +1,10 @@
-# Testes automatizados com Cypress - Básico
+# Curso - Testes automatizados com Cypress - Básico
 
 👋 Seja bem-vindo(a)!
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai adorar este curso. ❤️
+Conteúdo do curso de Curso Cypress Básico apresentado pleo prof° Walmyr Filho.
 
-## O que você vai aprender
+## O que foi ensinado no curso
 
 Durante o curso de testes automatizados com Cypress (básico), você vai aprender:
 
@@ -20,10 +20,21 @@ Durante o curso de testes automatizados com Cypress (básico), você vai aprende
 - Como executar os testes em um _pipeline_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
 - Como criar uma documentação mínima para seu projeto de testes automatizados
 
-## Vamos começar?
+## Requerimentos para o projeto
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+São necessários o Node.js e npm instalados para execução do projeto.
+>Foram utilizados Node.js (v16.16.0) e NPM (8.11.0)
+
+## Instalação
+
+Executar o comando `npm install` no terminal na raiz do projeto (ou `npm i`), para instalação das dependencias.
+
+## Testes
+
+Executar o comando `npm test` no terminal para execução dos testes em modo handless.
+No mobile em modo handless, executar o comando `npm test:mobile`, que será executado com tamanho de tela 410x860.
+
+Para modo interativo, executar o comando `npm run cy:open`.
+Em mobile no modo interativo executar o comando `npm run cy:open:mobile`.
 
 ___
-
-Este é mais um curso da [**Escola Talking About Testing**](https://udemy.com/user/walmyr).
